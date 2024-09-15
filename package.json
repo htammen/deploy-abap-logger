@@ -1,0 +1,23 @@
+{
+  "name": "@htammen/deploy-abap-logger",
+  "version": "0.0.1",
+  "description": "pkg that logs deployment of ui5 apps to abap repository (BSP)",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "deploy",
+    "abap",
+    "log"
+  ],
+  "author": "Helmut Tammen",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4"
+  }
+}
