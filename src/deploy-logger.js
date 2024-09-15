@@ -1,6 +1,7 @@
 const { execSync, spawn } = require('child_process');
 const { formatDate, formatTime } = require('./formatDate');
 const fs = require('fs-extra');
+const YAML = require('yaml')
 
 /**
  * Check for unstaged changes in the working tree
@@ -168,6 +169,23 @@ const getPackageInfo = async () => {
     return { name: packageJson.name, version: packageJson.version }
 }
 
+const getDeployInfo = async () => {
+    const nwabaprc = await fs.readJson('.nwabaprc', {throws: false}) || null;
+    if(!nwabaprc) {
+        nwabaprc = {abap_package: '', abap_bsp: '', abap_transport: ''}
+        const file = fs.readFileSync('./ui5-deploy.yaml', 'utf8')
+        const ui5Deploy = YAML.parse(file);
+        const builderTasks = ui5Deploy.builder.customTasks;
+        const deployTask = builderTasks.find(task => task.name === 'deploy-to-abap')
+        if(deployTask) {
+            nwabaprc.abap_package = deployTask.configuration.app.package;
+            nwabaprc.abap_bsp = deployTask.configuration.app.name;
+            nwabaprc.abap_transport = deployTask.configuration.app.transport;
+        }
+    }
+    return { abap_package: nwabaprc.abap_package, abap_bsp: nwabaprc.abap_bsp, abap_transport: nwabaprc.abap_transport }
+}
+
 const main = async () => {
     let exitCode = 1;
     try {
@@ -175,6 +193,7 @@ const main = async () => {
         const gitParams = await getGitParams();
         const pkgJson = await getPackageInfo();
         const commitInfo = await getGitCommitInfo();
+        const deployInfo = await getDeployInfo();
         const result = {
             project: pkgJson.name,
             version: pkgJson.version,
@@ -183,7 +202,10 @@ const main = async () => {
             date: formatDate(new Date()),
             time: formatTime(new Date()),
             commit: commitInfo.commit,
-            info: commitInfo.info
+            commitInfo: commitInfo.info,
+            abap_package: deployInfo.abap_package,
+            abap_bsp: deployInfo.abap_bsp,
+            abap_transport: deployInfo.abap_transport
         }
         await fs.ensureFile(logFile)
         const json = await fs.readJson(logFile, { throws: false }) || []

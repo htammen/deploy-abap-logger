@@ -15,7 +15,8 @@
   "author": "Helmut Tammen",
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "yaml": "^2.5.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"
