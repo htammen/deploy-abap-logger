@@ -149,6 +149,9 @@ const getGitCommitInfo = async () => {
 }
 
 
+/*
+ * get branch and username from git
+ */
 const getGitParams = async () => {
     const result = {}
     result.branch = await getGitBranch()
