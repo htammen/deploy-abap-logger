@@ -1,6 +1,6 @@
 {
   "name": "@htammen/deploy-abap-logger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "pkg that logs deployment of ui5 apps to abap repository (BSP)",
   "main": "index.js",
   "bin": {

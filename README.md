@@ -3,10 +3,10 @@
 A tool that can be used to write logging info about deployments (also other actions are possible) of applications.  
 We use this tool to log our deployments of SAPUI5 applications to SAP ABAP repository.
 
-When you call this tool it collects some information from git, package.json as well as some SAP 
+When you call this tool it collects some information from git, package.json as well as some SAP
 specific deploy information and writes it to a local json file.
 
-## Written log information 
+## Written log information
 
 The log is written in json format. Here you see what gets logged
 
@@ -50,48 +50,48 @@ and here is an example
 
 ### Property Documentation
 
-#### project 
+#### project
 
 The tool reads the property `name` from your package.json and prints it in this property.
 
-#### version 
+#### version
 
 The tools reads the property `version` from your package.json and prints it in this property.
 
-#### branch 
+#### branch
 
 The branch is read with the command `git branch --show-current` and printed to this property.
 
-#### username 
+#### username
 
 The username is read with the command `git config user.name` and printed to this property.
 
-#### date 
+#### date
 
 This is the current date with format yyyy-mm-dd
 
-#### time 
+#### time
 
-This is the current time with format HH:MM:ss 
+This is the current time with format HH:MM:ss
 
-#### commit 
+#### commit
 
-Here the commit hash from the current git commit is printed. But this is only true if 
-there are no unstaged changes in your current workspace and if there are no uncommitted 
+Here the commit hash from the current git commit is printed. But this is only true if
+there are no unstaged changes in your current workspace and if there are no uncommitted
 changes.  
-We only write the commit hash for commited changes to make clear that this deployment may not 
+We only write the commit hash for commited changes to make clear that this deployment may not
 be reproducable at a later time, e.g. if the developer discards and never commits the changes.  
 If commit is empty the commitInfo gives more details.
 
-#### commitInfo 
+#### commitInfo
 
-Additional information to the git commit. Gets only filled if `commit` is empty. 
+Additional information to the git commit. Gets only filled if `commit` is empty.
 
 #### abap_package
 
 ABAP package name. This is either read from the file `ui5-deploy.yaml` or `.nwabaprc`.
 
-#### abap_bsp 
+#### abap_bsp
 
 ABAP bsp name. This is either read from the file `ui5-deploy.yaml` or `.nwabaprc`.
 
@@ -105,7 +105,7 @@ ABAP transport name/ID. This is either read from the file `ui5-deploy.yaml` or `
 npm install -D @htammen/deploy-abap-logger
 ```
 
-## Usage 
+## Usage
 
 To use this tool just add it to a script of your package.json.  
 Here is an example. Here we use `nwabap:upload` to deploy our SAPUI5 application to the ABAP system.
@@ -114,7 +114,12 @@ Here is an example. Here we use `nwabap:upload` to deploy our SAPUI5 application
   "scripts": {
     ...
     "deploy": "npm-run-all build nwabap:upload write-deploy-log",
-    "write-deploy-log": "@htammen/deploy-abap-logger"
+    "write-deploy-log": "deploy-abap-logger"
   }
 ```
 
+## Contribution
+
+This package currently works for our environment. There might be other ones that are slightly different.  
+If it does not fit into yours you can either add changes via forks and pull requests or create an [issue](https://github.com/htammen/deploy-abap-logger/issues).
+on github.
