@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "CommonJS",
+    "skipLibCheck": true,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "rootDir": "./",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "index.mjs",
+    "node_modules",
+    "eslint.config.mjs",
+    "dist"
+  ]
+}
